@@ -30,43 +30,58 @@ struct ContentView: View {
     ]
     
     var body: some View {
-        List{
-            Section(header: HStack {
-                Image(systemName: "moon.stars")
-                Text("Nightly Tasks")
-            }.font(.title3)
-            ){
-                ForEach(nightlyTasks,id:\.self, content: {
-                        taskName in
-                        Text(taskName)
-                    }
-                )
-            }
-            
-            Section(header: HStack {
-                Image(systemName: "sunrise")
-                Text("Weekly Tasks")
-            }.font(.title3)
-            ){
-                ForEach(weeklyTasks,id:\.self, content: {
-                        taskName in
-                        Text(taskName)
-                    }
-                )
-            }
-            
-            Section(header: HStack {
-                Image(systemName: "calendar")
-                Text("Monthly Tasks")
-            }.font(.title3)
-            ){
-                ForEach(monthlyTasks,id:\.self, content: {
-                        taskName in
-                        Text(taskName)
-                    }
-                )
-            }
-        }.listStyle(GroupedListStyle())
+        NavigationView{
+            List{
+                Section(header: HStack {
+                    Image(systemName: "moon.stars")
+                    Text("Nightly Tasks")
+                }.font(.title3)
+                ){
+                    ForEach(nightlyTasks,id:\.self, content: {
+                            taskName in
+                        NavigationLink(taskName, destination: VStack {
+                            Text(taskName)
+                            Text("plalceholder description")
+                            Text("paceholder button")
+                        }.navigationTitle(taskName))
+                        }
+                    )
+                }
+                
+                Section(header: HStack {
+                    Image(systemName: "sunrise")
+                    Text("Weekly Tasks")
+                }.font(.title3)
+                ){
+                    ForEach(weeklyTasks,id:\.self, content: {
+                            taskName in
+                        NavigationLink(taskName, destination: VStack {
+                            Text(taskName)
+                            Text("plalceholder description")
+                            Text("paceholder button")
+                        }.navigationTitle(taskName))
+                        }
+                    )
+                }
+                
+                Section(header: HStack {
+                    Image(systemName: "calendar")
+                    Text("Monthly Tasks")
+                }.font(.title3)
+                ){
+                    ForEach(monthlyTasks,id:\.self, content: {
+                            taskName in
+                        NavigationLink(taskName, destination: VStack {
+                            Text(taskName)
+                            Text("plalceholder description")
+                            Text("paceholder button")
+                        }.navigationTitle(taskName))
+                        }
+                    )
+                }
+            }.listStyle(GroupedListStyle())
+                .navigationTitle("Home")
+        }
     }
 }
 
