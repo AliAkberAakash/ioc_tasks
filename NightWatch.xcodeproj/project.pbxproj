@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DCBCB95528FE76F000FF6B7C /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCBCB95428FE76F000FF6B7C /* DetailsView.swift */; };
 		DCDD8B2D28FC6FF80016D2C8 /* NightWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDD8B2C28FC6FF80016D2C8 /* NightWatchApp.swift */; };
 		DCDD8B2F28FC6FF80016D2C8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDD8B2E28FC6FF80016D2C8 /* ContentView.swift */; };
 		DCDD8B3128FC6FFC0016D2C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DCDD8B3028FC6FFC0016D2C8 /* Assets.xcassets */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DCBCB95428FE76F000FF6B7C /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		DCDD8B2928FC6FF80016D2C8 /* NightWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NightWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCDD8B2C28FC6FF80016D2C8 /* NightWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightWatchApp.swift; sourceTree = "<group>"; };
 		DCDD8B2E28FC6FF80016D2C8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 				DCDD8B2E28FC6FF80016D2C8 /* ContentView.swift */,
 				DCDD8B3028FC6FFC0016D2C8 /* Assets.xcassets */,
 				DCDD8B3228FC6FFC0016D2C8 /* Preview Content */,
+				DCBCB95428FE76F000FF6B7C /* DetailsView.swift */,
 			);
 			path = NightWatch;
 			sourceTree = "<group>";
@@ -139,6 +142,7 @@
 			files = (
 				DCDD8B2F28FC6FF80016D2C8 /* ContentView.swift in Sources */,
 				DCDD8B2D28FC6FF80016D2C8 /* NightWatchApp.swift in Sources */,
+				DCBCB95528FE76F000FF6B7C /* DetailsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

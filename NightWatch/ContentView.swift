@@ -32,56 +32,60 @@ struct ContentView: View {
     var body: some View {
         NavigationView{
             List{
-                Section(header: HStack {
-                    Image(systemName: "moon.stars")
-                    Text("Nightly Tasks")
-                }.font(.title3)
+                Section(
+                    header: TaskHeaderView(
+                        iconName: "moon.stars",
+                        titleText: "Nightly Tasks"
+                    )
                 ){
                     ForEach(nightlyTasks,id:\.self, content: {
                             taskName in
-                        NavigationLink(taskName, destination: VStack {
-                            Text(taskName)
-                            Text("plalceholder description")
-                            Text("paceholder button")
-                        }.navigationTitle(taskName))
-                        }
+                        NavigationLink(
+                            taskName,
+                            destination: DetailsView(taskName: taskName)
+                        )
+                      }
                     )
                 }
                 
-                Section(header: HStack {
-                    Image(systemName: "sunrise")
-                    Text("Weekly Tasks")
-                }.font(.title3)
-                ){
+                Section(header: TaskHeaderView(
+                    iconName: "sunrise", titleText: "Weekly Tasks")
+            ){
                     ForEach(weeklyTasks,id:\.self, content: {
                             taskName in
-                        NavigationLink(taskName, destination: VStack {
-                            Text(taskName)
-                            Text("plalceholder description")
-                            Text("paceholder button")
-                        }.navigationTitle(taskName))
+                        NavigationLink(taskName, destination: DetailsView(taskName: taskName))
                         }
                     )
                 }
                 
-                Section(header: HStack {
-                    Image(systemName: "calendar")
-                    Text("Monthly Tasks")
-                }.font(.title3)
+                Section(
+                    header: TaskHeaderView(
+                    iconName: "calendar", titleText: "Monthly Tasks")
+
                 ){
                     ForEach(monthlyTasks,id:\.self, content: {
                             taskName in
-                        NavigationLink(taskName, destination: VStack {
-                            Text(taskName)
-                            Text("plalceholder description")
-                            Text("paceholder button")
-                        }.navigationTitle(taskName))
+                        NavigationLink(taskName, destination: DetailsView(taskName: taskName))
                         }
                     )
                 }
-            }.listStyle(GroupedListStyle())
-                .navigationTitle("Home")
+            }
+            .listStyle(GroupedListStyle())
+            .navigationTitle("Home")
         }
+    }
+}
+
+struct TaskHeaderView: View {
+    
+    let iconName: String;
+    let titleText: String;
+    
+    var body: some View {
+        HStack {
+            Image(systemName: iconName)
+            Text(titleText)
+        }.font(.title3)
     }
 }
 
