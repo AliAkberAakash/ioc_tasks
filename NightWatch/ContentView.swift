@@ -9,25 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    var nightlyTasks = [
-        "Clean floors",
-        "Lock doors",
-        "Turn off lights",
-        "Keep watch",
-        "Monitor night camera",
-        "Walk around the premises",
-    ]
-    
-    var weeklyTasks =  [
-        "Clean the kitchen",
-        "Wash the bathroom",
-        "Varnish chairs",
-    ]
-    
-    var monthlyTasks = [
-        "Trim bushes",
-        "Mow the lawns"
-    ]
+    @ObservedObject var nightWatchTask: NightWatchTask
     
     var body: some View {
         NavigationView{
@@ -38,11 +20,13 @@ struct ContentView: View {
                         titleText: "Nightly Tasks"
                     )
                 ){
-                    ForEach(nightlyTasks,id:\.self, content: {
-                            taskName in
+                    ForEach($nightWatchTask.nightlyTasks,content: {
+                            task in
                         NavigationLink(
-                            taskName,
-                            destination: DetailsView(taskName: taskName)
+                            destination: DetailsView(task: task),
+                            label: {
+                                TaskRowView(task: task.wrappedValue)
+                            }
                         )
                       }
                     )
@@ -51,9 +35,14 @@ struct ContentView: View {
                 Section(header: TaskHeaderView(
                     iconName: "sunrise", titleText: "Weekly Tasks")
             ){
-                    ForEach(weeklyTasks,id:\.self, content: {
-                            taskName in
-                        NavigationLink(taskName, destination: DetailsView(taskName: taskName))
+                    ForEach($nightWatchTask.weeklyTasks,content: {
+                        task in
+                        NavigationLink(
+                                destination: DetailsView(task: task),
+                                label: {
+                                    TaskRowView(task: task.wrappedValue)
+                                }
+                            )
                         }
                     )
                 }
@@ -63,9 +52,14 @@ struct ContentView: View {
                     iconName: "calendar", titleText: "Monthly Tasks")
 
                 ){
-                    ForEach(monthlyTasks,id:\.self, content: {
-                            taskName in
-                        NavigationLink(taskName, destination: DetailsView(taskName: taskName))
+                    ForEach($nightWatchTask.monthlyTasks,content: {
+                            task in
+                            NavigationLink(
+                                destination: DetailsView(task: task),
+                                label: {
+                                    TaskRowView(task: task.wrappedValue)
+                                }
+                            )
                         }
                     )
                 }
@@ -91,6 +85,6 @@ struct TaskHeaderView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(nightWatchTask: NightWatchTask())
     }
 }
