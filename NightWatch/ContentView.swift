@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @ObservedObject var nightWatchTask: NightWatchTask
+    @State private var focusMode = false
     
     var body: some View {
         NavigationView{
@@ -22,14 +23,21 @@ struct ContentView: View {
                 ){
                     ForEach($nightWatchTask.nightlyTasks,content: {
                             task in
-                        NavigationLink(
-                            destination: DetailsView(task: task),
-                            label: {
-                                TaskRowView(task: task.wrappedValue)
-                            }
-                        )
+                        if(!focusMode || (focusMode && !task.wrappedValue.isComplete)){
+                            NavigationLink(
+                                destination: DetailsView(task: task),
+                                label: {
+                                    TaskRowView(task: task.wrappedValue)
+                                }
+                            )
+                        }
                       }
-                    )
+                    ).onDelete { indexSet in
+                        nightWatchTask.nightlyTasks.remove(atOffsets: indexSet)
+                    }
+                    .onMove { indexSet, newOffset in
+                        nightWatchTask.nightlyTasks.move(fromOffsets: indexSet, toOffset: newOffset)
+                    }
                 }
                 
                 Section(header: TaskHeaderView(
@@ -44,7 +52,12 @@ struct ContentView: View {
                                 }
                             )
                         }
-                    )
+                    ).onDelete { indexSet in
+                        nightWatchTask.weeklyTasks.remove(atOffsets: indexSet)
+                    }
+                    .onMove { indexSet, newOffset in
+                        nightWatchTask.weeklyTasks.move(fromOffsets: indexSet, toOffset: newOffset)
+                    }
                 }
                 
                 Section(
@@ -61,11 +74,41 @@ struct ContentView: View {
                                 }
                             )
                         }
-                    )
+                    ).onDelete { indexSet in
+                        nightWatchTask.monthlyTasks.remove(atOffsets: indexSet)
+                    }
+                    .onMove { indexSet, newOffset in
+                        nightWatchTask.monthlyTasks.move(fromOffsets: indexSet, toOffset: newOffset)
+                    }
                 }
             }
             .listStyle(GroupedListStyle())
             .navigationTitle("Home")
+            .toolbar {
+                
+                ToolbarItem(placement: .navigationBarLeading) {
+                    EditButton()
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Reset") {
+                        let newTasks = NightWatchTask()
+                        nightWatchTask.nightlyTasks = newTasks.nightlyTasks
+                        nightWatchTask.weeklyTasks = newTasks.weeklyTasks
+                        nightWatchTask.monthlyTasks = newTasks.monthlyTasks
+                    }
+                }
+                
+                ToolbarItem(placement: .bottomBar) {
+                    Toggle(
+                        isOn: $focusMode,
+                        label: {
+                            Text("Focus Mode")
+                        }
+                    ).toggleStyle(.switch)
+                    
+                }
+            }
         }
     }
 }
