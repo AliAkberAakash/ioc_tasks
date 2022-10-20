@@ -11,6 +11,7 @@ struct ContentView: View {
     
     @ObservedObject var nightWatchTask: NightWatchTask
     @State private var focusMode = false
+    @State private var showResetAlert = false
     
     var body: some View {
         NavigationView{
@@ -92,10 +93,7 @@ struct ContentView: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Reset") {
-                        let newTasks = NightWatchTask()
-                        nightWatchTask.nightlyTasks = newTasks.nightlyTasks
-                        nightWatchTask.weeklyTasks = newTasks.weeklyTasks
-                        nightWatchTask.monthlyTasks = newTasks.monthlyTasks
+                        showResetAlert = true
                     }
                 }
                 
@@ -109,6 +107,14 @@ struct ContentView: View {
                     
                 }
             }
+        }
+        .alert(isPresented: $showResetAlert) {
+            Alert(title: Text("Reset"), message: Text("Are you sure you want too reset?"),primaryButton: .cancel(), secondaryButton: .destructive(Text("Yes, reset")){
+                let newTasks = NightWatchTask()
+                nightWatchTask.nightlyTasks = newTasks.nightlyTasks
+                nightWatchTask.weeklyTasks = newTasks.weeklyTasks
+                nightWatchTask.monthlyTasks = newTasks.monthlyTasks
+            })
         }
     }
 }
